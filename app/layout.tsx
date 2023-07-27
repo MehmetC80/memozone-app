@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { BottomHeader } from '@/components/header/bottom-header';
 import { Footer } from '@/components/footer';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 
 export const metadata: Metadata = {
   title: 'Create Next App',

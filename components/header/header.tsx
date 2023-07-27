@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { BiCaretDown } from 'react-icons/bi';
 import { HiOutlineSearch } from 'react-icons/hi';
 import { SlLocationPin } from 'react-icons/sl';
@@ -7,14 +8,14 @@ export const Header = () => {
   return (
     <header className='w-full h-20 bg-slate-950 text-white sticky top-0 z-50 flex justify-between items-center gap-2 mx-auto px-4 md1:gap-3'>
       {/* Logo */}
-      <div className='relative w-20 h-20 mt-4'>
+      <Link href={'/'} className='relative w-20 h-20 mt-4'>
         <Image
           src='/images/logo.png'
           alt='logo'
           fill
           className='object-contain'
         />
-      </div>
+      </Link>
       {/* Delivery */}
       <div className=' text-gray-400 items-center gap-2 hidden xl:flex'>
         <SlLocationPin />
@@ -49,7 +50,7 @@ export const Header = () => {
         <p>Favoriten</p>
       </div>
       {/* Cart */}
-      <div className='relative'>
+      <Link href={'/cart'} className='relative'>
         <Image
           src='/images/cartIcon.png'
           alt='cart image'
@@ -63,7 +64,7 @@ export const Header = () => {
         <span className='absolute text-sm text-amazon_yellow top-0 left-[20px]'>
           0
         </span>
-      </div>
+      </Link>
     </header>
   );
 };

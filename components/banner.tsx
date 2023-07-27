@@ -14,17 +14,38 @@ export const Banner = () => {
         showThumbs={false}
         interval={4000}
       >
-        <div className='w-full h-[calc(100vh-9rem)]'>
-          <Image src='/images/sliderImg_1.jpg' alt='slider image' fill />
+        <div className='relative h-80 w-full md:h-96 lg:h-[calc(100vh-9rem)]'>
+          <Image
+            priority
+            fill
+            src='/images/websites.jpg'
+            alt='slider image'
+            className='object-cover'
+          />
         </div>
-        <div className='w-full h-[calc(100vh-9rem)]'>
-          <Image src='/images/sliderImg_2.jpg' alt='slider image' fill />
+        <div className='relative h-80 w-full md:h-96 lg:h-[calc(100vh-9rem)]'>
+          <Image
+            src='/images/sliderImg_2.jpg'
+            alt='slider image'
+            fill
+            className='object-cover'
+          />
         </div>
-        <div className='w-full h-[calc(100vh-9rem)]'>
-          <Image src='/images/sliderImg_3.jpg' alt='slider image' fill />
+        <div className='relative h-80 w-full md:h-96 lg:h-[calc(100vh-9rem)]'>
+          <Image
+            src='/images/laptop.jpg'
+            alt='slider image'
+            fill
+            className='object-cover'
+          />
         </div>
-        <div className='w-full h-[calc(100vh-9rem)]'>
-          <Image src='/images/sliderImg_4.jpg' alt='slider image' fill />
+        <div className='relative w-full h-80  md:h-96 lg:h-[calc(100vh-9rem)]'>
+          <Image
+            src='/images/sliderImg_4.jpg'
+            alt='slider image'
+            fill
+            className='object-cover'
+          />
         </div>
       </Carousel>
       {/* For Shadow Effect */}

@@ -1,10 +1,17 @@
+'use client';
+import { StateProps } from '@/type';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BiCaretDown } from 'react-icons/bi';
 import { HiOutlineSearch } from 'react-icons/hi';
 import { SlLocationPin } from 'react-icons/sl';
+import { useSelector } from 'react-redux';
 
 export const Header = () => {
+  const { productData, favoriteData } = useSelector(
+    (state: StateProps) => state.next
+  );
+
   return (
     <header className='w-full h-20 bg-slate-950 text-white sticky top-0 z-50 flex justify-between items-center gap-2 mx-auto px-4 md1:gap-3'>
       {/* Logo */}
@@ -46,8 +53,14 @@ export const Header = () => {
         </p>
       </div>
       {/* Favorite */}
-      <div className='text-sm text-gray-400 hover:text-white transition-all duration-300 font-bold'>
-        <p>Favoriten</p>
+      <div className='relative text-sm text-gray-400 hover:text-white transition-all duration-300 font-bold'>
+        <p>Wunsch</p>
+        <p>Liste</p>
+        {favoriteData.length > 0 && (
+          <span className='absolute top-5 right-2 flex justify-center items-center text-amazon_yellow'>
+            {favoriteData.length}
+          </span>
+        )}
       </div>
       {/* Cart */}
       <Link href={'/cart'} className='relative'>
@@ -62,7 +75,7 @@ export const Header = () => {
           Warenkorb
         </p>
         <span className='absolute text-sm text-amazon_yellow top-0 left-[20px]'>
-          0
+          {productData ? productData.length : 0}
         </span>
       </Link>
     </header>

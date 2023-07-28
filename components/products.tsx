@@ -1,8 +1,13 @@
+'use client';
 import { ProductProps } from '@/type';
 import Image from 'next/image';
 import { HiShoppingCart } from 'react-icons/hi';
-import { FaHeart, FaHeartbeat } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { addToCart, addToFavorite } from '@/store/nextSlices';
 export const Products = ({ products }: { products: ProductProps[] }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className='w-full px-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 '>
       {products.map((product) => {
@@ -20,10 +25,46 @@ export const Products = ({ products }: { products: ProductProps[] }) => {
                 width={300}
               />
               <div className='text-xl w-12 h-24 absolute bottom-10 right-0 border-[1px] border-gray-400 bg-whrite flex flex-col rounded:md translate-x-20 group-hover:translate-x-0 duration-300'>
-                <span className='w-full h-full border-b-[1px] border-b-gray-400 flex items-center justify-center hover:bg-amazon_yellow cursor-pointer transition-all duration-300'>
+                <span
+                  className='w-full h-full border-b-[1px] border-b-gray-400 flex items-center justify-center hover:bg-amazon_yellow cursor-pointer transition-all duration-300'
+                  onClick={() =>
+                    dispatch(
+                      addToCart({
+                        _id: product._id,
+                        brand: product.brand,
+                        category: product.category,
+                        description: product.description,
+                        image: product.image,
+                        isNew: product.isNew,
+                        oldPrice: product.oldPrice,
+                        price: product.price,
+                        title: product.title,
+                        quantity: 1,
+                      })
+                    )
+                  }
+                >
                   <HiShoppingCart />
                 </span>
-                <span className='text-xl w-full h-full border-b-[1px] border-b-gray-400 flex items-center justify-center hover:bg-amazon_yellow cursor-pointer transition-all duration-300'>
+                <span
+                  onClick={() =>
+                    dispatch(
+                      addToFavorite({
+                        _id: product._id,
+                        brand: product.brand,
+                        category: product.category,
+                        description: product.description,
+                        image: product.image,
+                        isNew: product.isNew,
+                        oldPrice: product.oldPrice,
+                        price: product.price,
+                        title: product.title,
+                        quantity: 1,
+                      })
+                    )
+                  }
+                  className='text-xl w-full h-full border-b-[1px] border-b-gray-400 flex items-center justify-center hover:bg-amazon_yellow cursor-pointer transition-all duration-300'
+                >
                   <FaHeart />
                 </span>
               </div>
@@ -50,7 +91,25 @@ export const Products = ({ products }: { products: ProductProps[] }) => {
               <p className='text-xs text-gray-600 text-justify'>
                 {product.description.substring(100)}
               </p>
-              <button className='h-10 font-medium bg-slate-900 text-white rounded-md hover:bg-amazon_yellow hover:text-black transition-all duration-300 mt-2'>
+              <button
+                onClick={() =>
+                  dispatch(
+                    addToCart({
+                      _id: product._id,
+                      brand: product.brand,
+                      category: product.category,
+                      description: product.description,
+                      image: product.image,
+                      isNew: product.isNew,
+                      oldPrice: product.oldPrice,
+                      price: product.price,
+                      title: product.title,
+                      quantity: 1,
+                    })
+                  )
+                }
+                className='h-10 font-medium bg-slate-900 text-white rounded-md hover:bg-amazon_yellow hover:text-black transition-all duration-300 mt-2'
+              >
                 + Warenkorb
               </button>
             </div>

@@ -5,12 +5,30 @@ import Link from 'next/link';
 import { BiCaretDown } from 'react-icons/bi';
 import { HiOutlineSearch } from 'react-icons/hi';
 import { SlLocationPin } from 'react-icons/sl';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import { useEffect } from 'react';
+import { addUser } from '@/store/nextSlices';
 
 export const Header = () => {
-  const { productData, favoriteData } = useSelector(
+  const { data: session } = useSession();
+  const dispatch = useDispatch();
+
+  const { productData, favoriteData, userInfo } = useSelector(
     (state: StateProps) => state.next
   );
+
+  useEffect(() => {
+    if (session) {
+      dispatch(
+        addUser({
+          name: session?.user?.name,
+          email: session.user?.email,
+          image: session.user?.image,
+        })
+      );
+    }
+  }, [session, dispatch]);
 
   return (
     <header className='w-full h-20 bg-slate-950 text-white sticky top-0 z-50 flex justify-between items-center gap-2 mx-auto px-4 md1:gap-3'>
@@ -43,15 +61,36 @@ export const Header = () => {
         </span>
       </div>
       {/* Signin */}
-      <div className='flex flex-col justify-center items-center text-sm text-gray-400 hover:text-white transition-all duration-300'>
-        <p>Hallo Login</p>
-        <p className='font-bold'>
-          Account
-          <span>
-            <BiCaretDown />
-          </span>
-        </p>
-      </div>
+
+      {userInfo ? (
+        <div className='flex gap-2 items-center text-sm text-gray-400 hover:text-white transition-all duration-300'>
+          <Image
+            src={userInfo.image}
+            alt='user-image'
+            width={40}
+            height={40}
+            className='rounded-full'
+          />
+          <div className='text-xs flex flex-col justify-between'>
+            <p className='text-white font-bold'>{userInfo.name}</p>
+            <p>{userInfo.email}</p>
+          </div>
+        </div>
+      ) : (
+        <div
+          onClick={() => signIn()}
+          className='flex flex-col justify-center items-center text-sm text-gray-400 hover:text-white transition-all duration-300'
+        >
+          <p>Hallo Login</p>
+          <p className='font-bold'>
+            Account
+            <span>
+              <BiCaretDown />
+            </span>
+          </p>
+        </div>
+      )}
+
       {/* Favorite */}
       <div className='relative text-sm text-gray-400 hover:text-white transition-all duration-300 font-bold'>
         <p>Wunsch</p>

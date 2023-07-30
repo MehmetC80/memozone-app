@@ -5,6 +5,7 @@ import { BottomHeader } from '@/components/header/bottom-header';
 import { Footer } from '@/components/footer';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { ReduxProvider } from '@/providers/redux-provider';
+import AuthProvider from '@/providers/auth-provider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,12 +20,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className='font-bodyFont bg-gray-300'>
-        <ReduxProvider>
-          <Header />
-          <BottomHeader />
-          {children}
-          <Footer />
-        </ReduxProvider>
+        <AuthProvider>
+          <ReduxProvider>
+            <Header />
+            <BottomHeader />
+            {children}
+            <Footer />
+          </ReduxProvider>
+        </AuthProvider>
       </body>
     </html>
   );

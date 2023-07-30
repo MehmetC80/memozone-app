@@ -42,8 +42,8 @@ const CartProduct = ({ item }: cartProductsProps) => {
           <p className='text-lg font-semibold text-amazon_blue'>{item.title}</p>
           <p className='text-sm text-gray-600'>{item.description}</p>
           <p className='text-sm text-gray-600'>
-            Unit Price{' '}
-            <span className='font-semibold text-amazon_blue'>
+            Stück Preis
+            <span className='ml-2 font-semibold text-amazon_blue'>
               {item.price.toFixed(2)}€
             </span>
           </p>

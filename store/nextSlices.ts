@@ -1,6 +1,5 @@
-'use client';
-import { StoreProduct } from '@/type';
 import { createSlice } from '@reduxjs/toolkit';
+import { StoreProduct } from '../type';
 
 interface NextState {
   productData: StoreProduct[];
@@ -22,7 +21,7 @@ export const nextSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const existingProduct = state.productData.find(
-        (item: StoreProduct) => item._id === action.payload
+        (item: StoreProduct) => item._id === action.payload._id
       );
       if (existingProduct) {
         existingProduct.quantity += action.payload.quantity;
@@ -32,7 +31,7 @@ export const nextSlice = createSlice({
     },
     addToFavorite: (state, action) => {
       const existingProduct = state.favoriteData.find(
-        (item: StoreProduct) => item._id === action.payload
+        (item: StoreProduct) => item._id === action.payload._id
       );
       if (existingProduct) {
         existingProduct.quantity += action.payload.quantity;
@@ -41,17 +40,15 @@ export const nextSlice = createSlice({
       }
     },
     increaseQuantity: (state, action) => {
-      const existingProduct = state.favoriteData.find(
-        (item: StoreProduct) => item._id === action.payload
+      const existingProduct = state.productData.find(
+        (item: StoreProduct) => item._id === action.payload._id
       );
-
       existingProduct && existingProduct.quantity++;
     },
     decreaseQuantity: (state, action) => {
-      const existingProduct = state.favoriteData.find(
-        (item: StoreProduct) => item._id === action.payload
+      const existingProduct = state.productData.find(
+        (item: StoreProduct) => item._id === action.payload._id
       );
-
       if (existingProduct?.quantity === 1) {
         existingProduct.quantity = 1;
       } else {
@@ -59,13 +56,23 @@ export const nextSlice = createSlice({
       }
     },
     deleteProduct: (state, action) => {
-      state.productData = state.favoriteData.filter(
-        (product) => product._id !== action.payload
+      state.productData = state.productData.filter(
+        (item) => item._id !== action.payload
       );
     },
+    deleteFavorite: (state, action) => {
+      state.favoriteData = state.favoriteData.filter(
+        (item) => item._id !== action.payload
+      );
+    },
+
     resetCart: (state) => {
       state.productData = [];
     },
+    resetFavoriteData: (state) => {
+      state.favoriteData = [];
+    },
+
     addUser: (state, action) => {
       state.userInfo = action.payload;
     },
@@ -88,5 +95,7 @@ export const {
   addUser,
   removeUser,
   setAllProducts,
+  deleteFavorite,
+  resetFavoriteData,
 } = nextSlice.actions;
 export default nextSlice.reducer;
